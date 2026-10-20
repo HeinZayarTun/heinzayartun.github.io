@@ -68,7 +68,7 @@
       display: inline-block;
     }
     .profile-img-wrapper::after {
-      content: '✨';
+      content: '🕊️';
       position: absolute;
       top: -5px;
       right: -5px;
@@ -169,24 +169,36 @@
     }
 
     /* Contact Form */
-    .contact-card {
-      background: var(--color-white);
-      border-radius: 24px;
-      padding: 40px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-      border: 1px solid var(--border-line);
-    }
-    .form-control {
-      border-radius: 12px;
-      padding: 12px 18px;
-      border: 1px solid var(--border-line);
-      background-color: #fafafa;
-    }
-    .form-control:focus {
-      box-shadow: 0 0 0 0.25rem rgba(251, 232, 180, 0.5);
-      border-color: var(--accent-gold);
-      background-color: var(--color-white);
-    }
+    
+/* Contact Links */
+.contact-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 12px;
+  border: 1px solid #f0e4e8;
+  border-radius: 18px;
+  background: #fffafc;
+  color: #51404a;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.contact-link i {
+  font-size: 1.4rem;
+  color: #c47798;
+}
+
+.contact-link:hover {
+  transform: translateY(-4px);
+  border-color: #d8a0b6;
+  background: #fceef4;
+  color: #8e4968;
+  box-shadow: 0 8px 20px rgba(160, 100, 130, 0.1);
+}
+
 
     /* Modal Styling */
     .modal-content {
@@ -256,34 +268,70 @@
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="py-5">
-    <div class="container py-4">
-      <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-          <div class="contact-card">
-            <h2 class="text-center fw-bold mb-1">Let's Connect</h2>
-            <p class="text-center text-muted classic-font fst-italic mb-4">Have a project in mind? Drop a line below!</p>
-            <form id="contact-form">
-              <div class="mb-3">
-                <label for="name" class="form-label fw-semibold">Your Name</label>
-                <input type="text" class="form-control" id="name" placeholder="How should I call you?" required />
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label fw-semibold">Email Address</label>
-                <input type="email" class="form-control" id="email" placeholder="name@example.com" required />
-              </div>
-              <div class="mb-3">
-                <label for="message" class="form-label fw-semibold">Message</label>
-                <textarea class="form-control" id="message" rows="4" placeholder="Tell me about your idea..." required></textarea>
-              </div>
-              <button type="submit" class="btn btn-custom-dark w-100 mt-2">Send Message 🚀</button>
-            </form>
-          </div>
-        </div>
-      </div>
+  
+<!-- Contact Section -->
+<section id="contact" class="py-5">
+  <div class="container py-4">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Let's Connect 🍃</h2>
+      <p class="text-muted classic-font fst-italic">
+        Have an idea or want to work together? Find me here!
+      </p>
     </div>
-  </section>
+
+    <div class="row justify-content-center g-3">
+      <!-- Email -->
+      <div class="col-6 col-md-4">
+        <a href="mailto:heinzayartun79@gmail.com"
+           class="contact-link">
+          <i class="bi bi-envelope-fill"></i>
+          <span>Email</span>
+        </a>
+      </div>
+
+      <!-- Telegram -->
+      <!-- <div class="col-6 col-md-4">
+        <a href="https://t.me/@MgSB007"
+           target="_blank" rel="noopener noreferrer"
+           class="contact-link">
+          <i class="bi bi-telegram"></i>
+          <span>Telegram</span>
+        </a>
+      </div> -->
+
+      <!-- Facebook -->
+      <div class="col-6 col-md-4">
+        <a href="https://www.facebook.com/share/19eKN5DPs8/"
+           target="_blank" rel="noopener noreferrer"
+           class="contact-link">
+          <i class="bi bi-facebook"></i>
+          <span>Facebook</span>
+        </a>
+      </div>
+
+      <!-- GitHub -->
+      <div class="col-6 col-md-4">
+        <a href="https://github.com/HeinZayarTun"
+        target="_blank" rel="noopener noreferrer"
+        class="contact-link">
+        <i class="bi bi-github"></i>
+        <span>GitHub</span>
+        </a>
+      </div>
+
+      <!-- LinkedIn -->
+      <!-- <div class="col-6 col-md-4">
+        <a href="https://www.linkedin.com/in/YOUR_USERNAME/"
+           target="_blank" rel="noopener noreferrer"
+           class="contact-link">
+          <i class="bi bi-linkedin"></i>
+          <span>LinkedIn</span>
+        </a>
+      </div> -->
+    </div>
+  </div>
+</section>
+
 
   <!-- Project Modal -->
   <div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
@@ -398,12 +446,31 @@
       projectModal.show();
     }
 
-    // Contact Form Handler
-    document.getElementById("contact-form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      alert("Thank you! Your message has been sent ✨");
-      this.reset();
-    });
+    
+     
+      
+function openProjectModal(id) {
+  const project = projects.find(p => p.id === id);
+  if (!project) return;
+
+  document.getElementById("modalTitle").innerText = project.title;
+  document.getElementById("modalIcon").className = `bi ${project.icon}`;
+  document.getElementById("modalDescription").innerText = project.fullDesc;
+  document.getElementById("modalGithub").href = project.github;
+
+  const tagsContainer = document.getElementById("modalTags");
+
+  tagsContainer.innerHTML = project.tags
+    .map(t => `<span class="badge rounded-pill px-3 py-2 bg-light text-dark border">${t}</span>`)
+    .join("");
+
+  projectModal.show();
+}
+
+
+
+    
+
   </script>
 </body>
 </html>
